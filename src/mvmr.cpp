@@ -275,6 +275,8 @@ Rcpp::List MVmr_cML(const arma::mat& b_exp, const arma::mat& b_out,
 //' @param maxit Maximum number of iterations for each optimization, default is 100.
 //' @param thres Threshold for convergence criterion.
 //'
+//' @import Rcpp
+//' @import RcppArmadillo
 //' @return A list
 //' \describe{
 //' \item{BIC_theta}{Estimated causal effect from MVMR-cML-BIC}

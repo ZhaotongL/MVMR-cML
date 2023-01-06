@@ -16,6 +16,8 @@
 #' @param maxit Maximum number of iterations for each optimization, default is 100.
 #' @param thres Threshold for convergence criterion.
 #'
+#' @import Rcpp
+#' @import RcppArmadillo
 #' @return A list
 #' \describe{
 #' \item{BIC_theta}{Estimated causal effect from MVMR-cML-BIC}
@@ -27,6 +29,6 @@
 #'
 #' @export
 MVmr_cML_DP <- function(b_exp, b_out, se_bx, Sig_inv_l, n, K_vec = as.numeric( c()), random_start = 1L, num_pert = 100L, maxit = 100L, thres = 1e-4) {
-    .Call('_MVMRcML_MVmr_cML_DP', PACKAGE = 'MVMRcML', b_exp, b_out, se_bx, Sig_inv_l, n, K_vec, random_start, num_pert, maxit, thres)
+    .Call(`_MVMRcML_MVmr_cML_DP`, b_exp, b_out, se_bx, Sig_inv_l, n, K_vec, random_start, num_pert, maxit, thres)
 }
 
