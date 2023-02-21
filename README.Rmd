@@ -29,8 +29,55 @@ Install the development version from [GitHub](https://github.com/) with:
 devtools::install_github("ZhaotongL/MVMR-cML")
 ```
 
-
-
-
 ## Example
 
+Here is an example which shows how to apply MVMR-cML to infer the causal relationship from cholesterol levels (triglycerides, LDL and HDL) to CAD.
+
+First extract GWAS summary data with \code{TwoSampleMR} package:
+```{r}
+library(TwoSampleMR)
+gwas_id = c(
+      'ebi-a-GCST002216',
+      'ebi-a-GCST002222',
+      'ebi-a-GCST002223')
+exposure_dat = mv_extract_exposures(gwas_id)
+outcome_dat <- extract_outcome_data(exposure_dat$SNP,'ebi-a-GCST005195')
+mvdat <- mv_harmonise_data(exposure_dat, outcome_dat)
+```
+
+MVMR-cML analysis:
+```{r}
+library(MVMRcML)
+## rho_mat is pre-calculated by bivariate LDSC
+rho_mat = matrix(c(1,0.1988,-0.3347,0,0.1988,1,-0.1114,0,-0.3347,-0.1114,1,0,0,0,0,1),ncol=4)
+Sig_inv_l = invcov_mvmr(se_bx=mvdat$exposure_se,se_by=mvdat$outcome_se,rho_mat = rho_mat)
+
+MVcML_res = MVmr_cML_DP(b_exp=mvdat$exposure_beta,
+                        b_out=as.matrix(mvdat$outcome_beta),
+                        se_bx=mvdat$exposure_se,
+                        Sig_inv_l=Sig_inv_l,n = 188577,num_pert = 100,
+                        K_vec = 0:20 # try a small range of K first to save time. Change this accordingly.
+                        )
+```
+
+In above code, we first tried a small range of $K$ from 0 to 20 (which can be changed accordingly in practice), and MVMR-cML-BIC selected 8 invalid IVs.
+```{r}
+## Invalid IVs selected by MVMR-cML-BIC
+MVcML_res$BIC_invalid
+
+## Inference by MVMR-cML-BIC (NOT ACCOUNTING FOR MODEL SELECTION UNCERTAINTY!)
+MVcML_BIC_SE = MVcML_SdTheta(b_exp=mvdat$exposure_beta,
+              b_out=as.matrix(mvdat$outcome_beta),
+              Sig_inv_l=Sig_inv_l,
+              theta=MVcML_res$BIC_theta,
+              zero_ind = setdiff(1:length(mvdat$outcome_beta),MVcML_res$BIC_invalid))
+
+MVcMLBIC_pval = pnorm(-abs(MVcML_res$BIC_theta/MVcML_BIC_SE))*2
+```
+
+MVMR-cML-DP suggested significant direct effects of TG and LDL on CAD, and a null effect of HDL on CAD.
+```{r}
+## Inference by MVMR-cML-DP
+MVcMLDP_pval = pnorm(-abs(MVcML_res$BIC_DP_theta/MVcML_res$BIC_DP_se))*2
+MVcMLDP_pval
+```
