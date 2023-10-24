@@ -26,7 +26,7 @@ pl <- function(x,b_exp_v,b_out_v,Sig_inv_v){
 #'
 #' @param se_bx A m*L matrix of standard errors of SNP-exposure association
 #' @param se_by A vector of standard errors of SNP-outcome association
-#' @param rho_mat A (L+1)\times(L+1) correlation matrix among the L exposures and the outcome, note that the upper-left L\times L submatrix corresponding to the L exposures.
+#' @param rho_mat A (L+1)\eqn{\times}(L+1) correlation matrix among the L exposures and the outcome, note that the upper-left L\eqn{\times}L submatrix corresponding to the L exposures.
 #' @return A list of inverse of covariance matrices with respect to each genetic variant, retaining the ordering in \code{se_bx}
 #'
 #' @export

@@ -11,7 +11,7 @@ invcov_mvmr(se_bx, se_by, rho_mat)
 
 \item{se_by}{A vector of standard errors of SNP-outcome association}
 
-\item{rho_mat}{The correlation matrix among the L exposures and the outcome}
+\item{rho_mat}{A (L+1)\eqn{\times}(L+1) correlation matrix among the L exposures and the outcome, note that the upper-left L\eqn{\times}L submatrix corresponding to the L exposures.}
 }
 \value{
 A list of inverse of covariance matrices with respect to each genetic variant, retaining the ordering in \code{se_bx}
