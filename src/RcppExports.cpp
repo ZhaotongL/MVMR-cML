@@ -11,6 +11,25 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// MVmr_cML
+Rcpp::List MVmr_cML(const arma::mat& b_exp, const arma::mat& b_out, const arma::mat& se_bx, const Rcpp::List& Sig_inv_l, const unsigned int n, Rcpp::NumericVector K_vec, const unsigned int random_start, const unsigned int maxit, const double thres);
+RcppExport SEXP _MVMRcML_MVmr_cML(SEXP b_expSEXP, SEXP b_outSEXP, SEXP se_bxSEXP, SEXP Sig_inv_lSEXP, SEXP nSEXP, SEXP K_vecSEXP, SEXP random_startSEXP, SEXP maxitSEXP, SEXP thresSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type b_exp(b_expSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type b_out(b_outSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type se_bx(se_bxSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type Sig_inv_l(Sig_inv_lSEXP);
+    Rcpp::traits::input_parameter< const unsigned int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type K_vec(K_vecSEXP);
+    Rcpp::traits::input_parameter< const unsigned int >::type random_start(random_startSEXP);
+    Rcpp::traits::input_parameter< const unsigned int >::type maxit(maxitSEXP);
+    Rcpp::traits::input_parameter< const double >::type thres(thresSEXP);
+    rcpp_result_gen = Rcpp::wrap(MVmr_cML(b_exp, b_out, se_bx, Sig_inv_l, n, K_vec, random_start, maxit, thres));
+    return rcpp_result_gen;
+END_RCPP
+}
 // MVmr_cML_DP
 Rcpp::List MVmr_cML_DP(const arma::mat& b_exp, const arma::mat& b_out, const arma::mat& se_bx, const Rcpp::List& Sig_inv_l, const unsigned int n, Rcpp::NumericVector K_vec, const unsigned int random_start, const unsigned int num_pert, const unsigned int maxit, const double thres);
 RcppExport SEXP _MVMRcML_MVmr_cML_DP(SEXP b_expSEXP, SEXP b_outSEXP, SEXP se_bxSEXP, SEXP Sig_inv_lSEXP, SEXP nSEXP, SEXP K_vecSEXP, SEXP random_startSEXP, SEXP num_pertSEXP, SEXP maxitSEXP, SEXP thresSEXP) {
@@ -33,6 +52,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_MVMRcML_MVmr_cML", (DL_FUNC) &_MVMRcML_MVmr_cML, 9},
     {"_MVMRcML_MVmr_cML_DP", (DL_FUNC) &_MVMRcML_MVmr_cML_DP, 10},
     {NULL, NULL, 0}
 };

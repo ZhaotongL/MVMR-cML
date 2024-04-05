@@ -2,6 +2,7 @@
 useDynLib("MVMRcML", .registration=TRUE)
 
 export(MVcML_SdTheta)
+export(MVmr_cML)
 export(MVmr_cML_DP)
 export(invcov_mvmr)
 importFrom("Rcpp", "evalCpp")

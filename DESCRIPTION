@@ -1,11 +1,10 @@
 Package: MVMRcML
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Multivariable Mendelian randomization based on constrained maximum likelihood
 Version: 0.1.0
 Author: Zhaotong Lin
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Maintainer: Zhaotong Lin <zl23k@fsu.edu>
+Description: Robust multivariable Mendelian randomization based on constrained maximum likelihood.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -16,4 +15,4 @@ Imports:
 LinkingTo: 
     Rcpp,
     RcppArmadillo
-RoxygenNote: 7.1.1
+RoxygenNote: 7.3.1
